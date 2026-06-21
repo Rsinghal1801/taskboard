@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Taskboard — a fast, offline Kanban board. Drag work across lanes; everything saves locally." />
+  <title>Taskboard · Kanban board</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%235b5bd6'/%3E%3Crect x='8' y='8' width='4' height='12' rx='2' fill='white'/%3E%3Crect x='14' y='8' width='4' height='16' rx='2' fill='white' opacity='.8'/%3E%3Crect x='20' y='8' width='4' height='9' rx='2' fill='white' opacity='.6'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="vendor/fonts.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- ============ Top bar ============ -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28">
+          <rect x="4"  y="6" width="5" height="20" rx="2.5" fill="currentColor"/>
+          <rect x="13" y="6" width="5" height="14" rx="2.5" fill="currentColor" opacity="0.78"/>
+          <rect x="22" y="6" width="5" height="9"  rx="2.5" fill="currentColor" opacity="0.55"/>
+        </svg>
+      </span>
+      <span class="brand__name">Taskboard</span>
+    </div>
+
+    <nav class="boards" id="boardTabs" aria-label="Boards"><!-- board tabs injected --></nav>
+
+    <div class="topbar__right">
+      <div class="progress" id="boardProgress" title="Cards in the final lane">
+        <span class="progress__bar"><i id="progressFill"></i></span>
+        <span class="progress__label" id="progressLabel">0%</span>
+      </div>
+      <button class="btn btn--ghost" id="newBoardBtn">+ Board</button>
+      <div class="menu">
+        <button class="icon-btn" id="menuBtn" aria-haspopup="true" aria-expanded="false" aria-label="More">⋯</button>
+        <div class="menu__list" id="menuList" role="menu" hidden>
+          <button role="menuitem" data-act="reseed">Reload sample data</button>
+          <button role="menuitem" data-act="reset" class="is-danger">Clear everything</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ Board canvas ============ -->
+  <main class="canvas" id="canvas" aria-label="Board">
+    <!-- columns injected here -->
+  </main>
+
+  <!-- ============ Card editor ============ -->
+  <div class="modal" id="cardModal" aria-hidden="true">
+    <div class="modal__scrim" data-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="cardModalTitle">
+      <div class="modal__head">
+        <h2 id="cardModalTitle">Card</h2>
+        <button class="icon-btn" data-close aria-label="Close">✕</button>
+      </div>
+
+      <label class="field">
+        <span>Title</span>
+        <input type="text" id="cardTitle" autocomplete="off" placeholder="What needs doing?" />
+      </label>
+
+      <label class="field">
+        <span>Notes</span>
+        <textarea id="cardNotes" rows="3" placeholder="Details, links, acceptance criteria…"></textarea>
+      </label>
+
+      <div class="field">
+        <span>Label</span>
+        <div class="chips" id="labelChips"><!-- label chips injected --></div>
+      </div>
+
+      <div class="field-row">
+        <label class="field">
+          <span>Priority</span>
+          <select id="cardPriority">
+            <option value="">None</option>
+            <option value="low">Low</option>
+            <option value="med">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Due date</span>
+          <input type="date" id="cardDue" />
+        </label>
+      </div>
+
+      <div class="modal__foot">
+        <button class="btn btn--danger-ghost" id="cardDelete">Delete</button>
+        <div class="spacer"></div>
+        <button class="btn btn--ghost" data-close>Cancel</button>
+        <button class="btn btn--primary" id="cardSave">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Tiny prompt (board / list names) ============ -->
+  <div class="modal" id="promptModal" aria-hidden="true">
+    <div class="modal__scrim" data-close></div>
+    <div class="modal__panel modal__panel--sm" role="dialog" aria-modal="true" aria-labelledby="promptTitle">
+      <div class="modal__head">
+        <h2 id="promptTitle">Name</h2>
+        <button class="icon-btn" data-close aria-label="Close">✕</button>
+      </div>
+      <label class="field">
+        <span id="promptLabel">Name</span>
+        <input type="text" id="promptInput" autocomplete="off" />
+      </label>
+      <div class="modal__foot">
+        <div class="spacer"></div>
+        <button class="btn btn--ghost" data-close>Cancel</button>
+        <button class="btn btn--primary" id="promptOk">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/store.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
