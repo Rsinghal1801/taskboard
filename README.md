@@ -2,10 +2,6 @@
 
 A fast, offline Kanban board for moving work across lanes. Drag cards between lists, label and prioritise them, switch between multiple boards — and everything saves to your browser instantly. No accounts, no servers, no sync to wait on.
 
-Built with **vanilla JavaScript** (no framework, no build step). Open `index.html` and it runs.
-
-![Taskboard board](assets/screenshot-board.png)
-
 ---
 
 ## Why it exists
@@ -89,7 +85,3 @@ There is no backend. Your boards live in `localStorage` under the key `taskboard
 - Export / import the workspace JSON
 - Multi-select drag, keyboard reordering
 - A sync backend (swap the storage layer)
-
-## License
-
-MIT — see [LICENSE](LICENSE). Bundled fonts (Plus Jakarta Sans, Inter) are licensed under the SIL Open Font License and are free to redistribute.
